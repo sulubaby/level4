@@ -1,19 +1,23 @@
 package piscine
 
+import "strconv"
+
 func ZipString(s string) string {
-	result := ""
-	for i := 0; i < len(s); i++ {
-		count := 1
-		if s[i] == '0' || (s[i] < 'A') || (s[i] > 'z') || (s[i] > 'Z' && s[i] < 'a') {
-			continue
-		}
-		for j := i + 1; j < len(s); j++ {
-			if s[i] == s[j] {
-				count++
-				s = s[:j] + "0" + s[j+1:] // Mark duplicate as '0'
-			}
-		}
-		result += string('0'+count) + string(s[i])
+	if len(s) == 0 {
+		return ""
 	}
+
+	var result string
+	count := 1
+	for i := 1; i < len(s); i++ {
+		if s[i] == s[i-1] {
+			count++
+		} else {
+			result += strconv.Itoa(count) + string(s[i-1])
+			count = 1
+		}
+	}
+	result += strconv.Itoa(count) + string(s[len(s)-1])
+	
 	return result
 }
