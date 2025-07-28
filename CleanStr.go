@@ -8,26 +8,27 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		z01.PrintRune('\n')
 		return
 	}
+	arr := []string{}
+	temp := ""
 
-	input := os.Args[1]
-	inWord := false
-	printedWord := false
-
-	for i := 0; i < len(input); i++ {
-		ch := input[i]
-		if ch != ' ' && ch != '\t' {
-			if !inWord && printedWord {
-				z01.PrintRune(' ')
+	for _, v := range os.Args[1] + " " {
+		if v == ' ' || v == '\t' {
+			if temp != "" {
+				arr = append(arr, temp)
+				temp = ""
 			}
-			z01.PrintRune(rune(ch))
-			inWord = true
-			printedWord = true
 		} else {
-			inWord = false
+			temp += string(v)
 		}
 	}
-	z01.PrintRune('\n')
+	for i, v := range arr {
+		for _, char := range v {
+			z01.PrintRune(char)
+		}
+		if i != len(arr)-1 {
+			z01.PrintRune(' ')
+		}
+	}
 }
