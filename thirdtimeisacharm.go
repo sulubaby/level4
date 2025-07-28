@@ -1,14 +1,12 @@
 package piscine
 
 func ThirdTimeIsACharm(str string) string {
+	res := ""
 	if len(str) < 3 {
 		return "\n"
 	}
-	var result string
-	for i, r := range str {
-		if (i+1)%3 == 0 {
-			result += string(r)
-		}
+	for i := 2; i < len(str); i = i + 3 {
+		res += string(str[i])
 	}
-	return result + "\n"
+	return res + "\n"
 }
